@@ -1,0 +1,60 @@
+{
+  "manifest_version": "0.3",
+  "name": "secure-git-bridge",
+  "display_name": "Secure Git Bridge",
+  "version": "0.1.39",
+  "description": "Secure, human-controlled repository access through Secure Git Bridge.",
+  "long_description": "Secure Git Bridge gives Claude access only to a repository that a local human explicitly binds in the Secure Git Bridge app. The extension itself receives no repository path or repository broker credential. Claude can use only the bounded read/status/diff/propose tools exposed by Secure Git Bridge; protected files remain blocked and Apply remains human-only.",
+  "author": {
+    "name": "Secure Git Bridge",
+    "email": "support@securegitbridge.com",
+    "url": "https://securegitbridge.com/"
+  },
+  "homepage": "https://securegitbridge.com/",
+  "documentation": "https://securegitbridge.com/docs/",
+  "support": "https://securegitbridge.com/account/support.php",
+  "icon": "icon.png",
+  "server": {
+    "type": "node",
+    "entry_point": "server/relay.js",
+    "mcp_config": {
+      "command": "node",
+      "args": [
+        "${__dirname}/server/relay.js"
+      ],
+      "env": {
+        "SSGB_CLAUDE_PAIRING": "${user_config.pairing}"
+      }
+    }
+  },
+  "user_config": {
+    "pairing": {
+      "type": "string",
+      "title": "Secure Git Bridge pairing",
+      "description": "In Secure Git Bridge, open Claude and choose Connect or Reopen Claude Connector Setup, then paste the copied pairing value here. This value authenticates only the Claude provider connector; repository access still requires an explicit local Bind action in Secure Git Bridge.",
+      "sensitive": true,
+      "required": true
+    }
+  },
+  "tools_generated": true,
+  "keywords": [
+    "git",
+    "security",
+    "developer-tools",
+    "repository",
+    "code-review"
+  ],
+  "license": "Proprietary",
+  "privacy_policies": [
+    "https://securegitbridge.com/privacy.html"
+  ],
+  "compatibility": {
+    "claude_desktop": ">=0.13.91",
+    "platforms": [
+      "darwin"
+    ],
+    "runtimes": {
+      "node": ">=18.0.0"
+    }
+  }
+}
